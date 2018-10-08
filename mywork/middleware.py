@@ -28,13 +28,13 @@ class LoginRequiredMiddleware:
 
         url_is_exempt = any(url.match(path) for url in EXEMPT_URLS)
 
-        if path== reverse('app:logout').lstrip('/'):
+        if path == reverse('app:logout').lstrip('/'):
             logout(request)
 
-        if request.user.is_authenticated() and url_is_exempt:
+        if request.user.is_authenticated and url_is_exempt:
             return redirect(settings.LOGIN_REDIRECT_URL)
 
-        elif request.user.is_authenticated() or url_is_exempt:
+        elif request.user.is_authenticated or url_is_exempt:
             return None
 
         else:
